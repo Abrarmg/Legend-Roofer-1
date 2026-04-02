@@ -65,10 +65,13 @@ const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
                 />
                 <select className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors">
                   <option>Select Service</option>
-                  <option>Roof Repair</option>
                   <option>Roof Replacement</option>
-                  <option>Emergency Repair</option>
-                  <option>Other</option>
+                  <option>Roof Repair</option>
+                  <option>Commercial Roof Repair</option>
+                  <option>Emergency Roof Repair</option>
+                  <option>Metal Roofing</option>
+                  <option>Flat Roof Repair</option>
+                  <option>Slate Roofing</option>
                 </select>
                 <textarea 
                   placeholder="Message (Optional)" 

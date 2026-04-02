@@ -18,7 +18,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-slate-400 mb-8 leading-relaxed">
-              Legend Roofer Roofing & Exteriors | Expert Roof Repair, Eavestrough & Siding in Mississauga & GTA.
+              Legend Roofer Roofing & Exteriors | Expert Roof Repair & Replacement in Mississauga & GTA.
             </p>
             <div className="space-y-4">
               <a href="mailto:info@legendroofer.com" className="flex items-center gap-3 text-slate-300 hover:text-orange-500 transition-colors">
@@ -61,7 +61,7 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-bold mb-8 uppercase tracking-widest text-orange-500">Services</h4>
             <ul className="space-y-4 text-slate-400">
-              {['Roofing', 'Eavestrough', 'Siding', 'Window / Door', 'Snow Removal', 'Flat Roof'].map(item => (
+              {['Roof Replacement', 'Roof Repair', 'Commercial Roofing', 'Emergency Repair', 'Flat Roof', 'Metal Roofing'].map(item => (
                 <li key={item}><Link to="/contact-us" className="hover:text-white transition-colors">{item}</Link></li>
               ))}
             </ul>
@@ -71,8 +71,8 @@ const Footer = () => {
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-sm">
           <p>© 2026 Legend Roofer Roofing & Exteriors. All rights reserved.</p>
           <div className="flex gap-8">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Sitemap</a>
           </div>
         </div>
       </div>

@@ -60,10 +60,13 @@ const Hero = () => {
               <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
               <select className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all appearance-none bg-white">
                 <option>Select Project Type</option>
-                <option>Roofing Replacement</option>
+                <option>Roof Replacement</option>
                 <option>Roof Repair</option>
-                <option>Eavestrough</option>
-                <option>Siding</option>
+                <option>Commercial Roof Repair</option>
+                <option>Emergency Roof Repair</option>
+                <option>Metal Roofing</option>
+                <option>Flat Roof Repair</option>
+                <option>Slate Roofing</option>
               </select>
               <textarea placeholder="Tell us about your project" rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all"></textarea>
               <button className="w-full bg-[#F54900] hover:opacity-90 text-white font-bold py-4 rounded-xl transition-all shadow-lg">

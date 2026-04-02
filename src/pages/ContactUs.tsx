@@ -180,12 +180,12 @@ const ContactUs = () => {
                         onChange={handleChange}
                         className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-orange-600 transition-all appearance-none"
                       >
-                        <option>Roof Inspection</option>
+                        <option>Roof Replacement</option>
+                        <option>Roof Repair</option>
+                        <option>Commercial Roof Repair</option>
                         <option>Emergency Roof Repair</option>
-                        <option>Full Roof Replacement</option>
-                        <option>Commercial Roofing</option>
-                        <option>Flat Roof Repair</option>
                         <option>Metal Roofing</option>
+                        <option>Flat Roof Repair</option>
                         <option>Slate Roofing</option>
                       </select>
                     </div>

@@ -52,6 +52,7 @@ import AreasWeServe from './pages/AreasWeServe';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import ContactUs from './pages/ContactUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // --- Components ---
 
@@ -300,10 +301,13 @@ const Hero = () => {
               <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
               <select className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all appearance-none bg-white">
                 <option>Select Project Type</option>
-                <option>Roofing Replacement</option>
+                <option>Roof Replacement</option>
                 <option>Roof Repair</option>
-                <option>Eavestrough</option>
-                <option>Siding</option>
+                <option>Commercial Roof Repair</option>
+                <option>Emergency Roof Repair</option>
+                <option>Metal Roofing</option>
+                <option>Flat Roof Repair</option>
+                <option>Slate Roofing</option>
               </select>
               <textarea placeholder="Tell us about your project" rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all"></textarea>
               <button className="w-full bg-[#F54900] hover:opacity-90 text-white font-bold py-4 rounded-xl transition-all shadow-lg">
@@ -625,7 +629,7 @@ const Footer = () => {
               />
             </a>
             <p className="text-slate-400 mb-8 leading-relaxed">
-              Legend Roofer Roofing & Exteriors | Expert Roof Repair, Eavestrough & Siding in Mississauga & GTA.
+              Legend Roofer Roofing & Exteriors | Expert Roof Repair & Replacement in Mississauga & GTA.
             </p>
             <div className="space-y-4">
               <a href="mailto:info@legendroofer.com" className="flex items-center gap-3 text-slate-300 hover:text-orange-500 transition-colors">
@@ -663,18 +667,19 @@ const Footer = () => {
               <li><Link to="/#testimonials" className="hover:text-white transition-colors">Our Guarantee</Link></li>
               <li><Link to="/contact-us" className="hover:text-white transition-colors">Careers</Link></li>
               <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-              <li><Link to="/#faq" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-lg font-bold mb-8 uppercase tracking-widest text-orange-500">Services</h4>
             <ul className="space-y-4 text-slate-400">
+              <li><Link to="/roof-replacement" className="hover:text-white transition-colors">Roof Replacement</Link></li>
               <li><Link to="/commercial-roof-repair" className="hover:text-white transition-colors">Commercial Roof Repair</Link></li>
               <li><Link to="/emergency-roof-repair" className="hover:text-white transition-colors">Emergency Roof Repair</Link></li>
               <li><Link to="/metal-roof-repair" className="hover:text-white transition-colors">Metal Roofing</Link></li>
               <li><Link to="/flat-roof-repair" className="hover:text-white transition-colors">Flat Roof Repair</Link></li>
-              <li><Link to="/#services" className="hover:text-white transition-colors">Slate Roofing</Link></li>
+              <li><Link to="/slate-roof-repair" className="hover:text-white transition-colors">Slate Roofing</Link></li>
             </ul>
           </div>
         </div>
@@ -728,6 +733,7 @@ const TrustBar = () => {
 };
 
 const BeforeAfter = () => {
+  const { openModal } = useLeadModal();
   const projects = [
     {
       title: "Shingle Roof Repair",
@@ -842,7 +848,10 @@ const BeforeAfter = () => {
           viewport={{ once: true }}
           className="mt-20 text-center"
         >
-          <button className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-xl flex items-center gap-2 mx-auto group">
+          <button 
+            onClick={openModal}
+            className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-xl flex items-center gap-2 mx-auto group"
+          >
             Book Free Inspection
             <ArrowRight className="group-hover:translate-x-1 transition-transform" />
           </button>
@@ -1513,6 +1522,7 @@ const AppContent = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </main>
       <Footer />
