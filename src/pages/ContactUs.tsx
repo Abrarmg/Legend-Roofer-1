@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mail, Send, CheckCircle2, Clock, ShieldCheck, Award, Star } from 'lucide-react';
 import { useLeadModal } from '../context/LeadModalContext';
+import { useThankYouModal } from '../context/ThankYouModalContext';
 
 const ContactUs = () => {
   const { openModal } = useLeadModal();
+  const { openThankYouModal } = useThankYouModal();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,7 +14,6 @@ const ContactUs = () => {
     service: 'Roof Inspection',
     message: ''
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -22,7 +23,7 @@ const ContactUs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch("https://formsubmit.co/ajax/naeemseo7860@gmail.com", {
+      await fetch("/wp-json/legend-roofer/v1/submit-lead", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +31,8 @@ const ContactUs = () => {
         },
         body: JSON.stringify(formData)
       });
-      setIsSubmitted(true);
+      openThankYouModal();
+      setFormData({ name: '', email: '', phone: '', service: 'Roof Inspection', message: '' });
     } catch (error) {
       console.error(error);
     }
@@ -114,24 +116,7 @@ const ContactUs = () => {
               viewport={{ once: true }}
               className="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl border border-slate-100 relative overflow-hidden"
             >
-              {isSubmitted ? (
-                <div className="text-center py-12">
-                  <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 size={48} />
-                  </div>
-                  <h3 className="text-3xl font-black text-slate-900 mb-4">Thank You!</h3>
-                  <p className="text-lg text-slate-600 mb-8">
-                    Your request has been received. One of our roofing specialists will contact you shortly to schedule your free inspection.
-                  </p>
-                  <button 
-                    onClick={() => setIsSubmitted(false)}
-                    className="text-orange-600 font-bold hover:underline"
-                  >
-                    Send another message
-                  </button>
-                </div>
-              ) : (
-                <>
+
                   <div className="mb-10">
                     <h3 className="text-3xl font-black text-slate-900 mb-3">Get a Free Inspection</h3>
                     <p className="text-slate-500">Fill out the form below and we'll get back to you within 24 hours.</p>
@@ -221,8 +206,6 @@ const ContactUs = () => {
                       <Send size={24} />
                     </button>
                   </form>
-                </>
-              )}
             </motion.div>
           </div>
         </div>

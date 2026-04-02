@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
+import { useThankYouModal } from '../context/ThankYouModalContext';
 
 interface LeadModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface LeadModalProps {
 }
 
 const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
+  const { openThankYouModal } = useThankYouModal();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -40,12 +42,13 @@ const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
                 e.preventDefault(); 
                 const formData = new FormData(e.currentTarget);
                 try {
-                  await fetch("https://formsubmit.co/ajax/naeemseo7860@gmail.com", {
+                  await fetch("/wp-json/legend-roofer/v1/submit-lead", {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify(Object.fromEntries(formData.entries()))
                   });
                   onClose(); 
+                  openThankYouModal();
                 } catch(err) { console.error(err); }
               }}>
                 <div className="grid grid-cols-2 gap-4">

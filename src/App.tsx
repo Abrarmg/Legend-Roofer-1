@@ -58,6 +58,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 
 import { LeadModalProvider, useLeadModal } from './context/LeadModalContext';
 import LeadModal from './components/LeadModal';
+import { ThankYouModalProvider } from './context/ThankYouModalContext';
+import ThankYouModal from './components/ThankYouModal';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -1494,9 +1496,11 @@ const ScrollToTop = () => {
 export default function App() {
   return (
     <BrowserRouter>
-      <LeadModalProvider>
-        <AppContent />
-      </LeadModalProvider>
+      <ThankYouModalProvider>
+        <LeadModalProvider>
+          <AppContent />
+        </LeadModalProvider>
+      </ThankYouModalProvider>
     </BrowserRouter>
   );
 }
@@ -1527,6 +1531,7 @@ const AppContent = () => {
       </main>
       <Footer />
       <LeadModal isOpen={isOpen} onClose={closeModal} />
+      <ThankYouModal />
     </div>
   );
 }
