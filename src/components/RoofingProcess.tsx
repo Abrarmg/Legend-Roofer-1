@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 
 const RoofingProcess = () => {
   const steps = [
@@ -40,20 +39,19 @@ const RoofingProcess = () => {
 
         <div className="relative">
           {/* Connecting Line for Desktop */}
-          <div className="hidden xl:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -translate-y-1/2 z-0"></div>
+          <div className="hidden xl:block absolute top-[4rem] left-0 w-full h-0.5 bg-slate-200 z-0"></div>
+          {/* Connecting Line for Mobile */}
+          <div className="md:hidden absolute top-[3rem] bottom-0 left-1/2 w-0.5 bg-slate-200 -translate-x-1/2 z-0"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 relative z-10">
             {steps.map((step, i) => (
-              <motion.div 
+              <div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="group"
+                data-delay={i * 0.1}
+                className="group scroll-reveal scroll-reveal-scale"
               >
-                <div className="bg-white p-8 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 hover:border-orange-600/30 hover:shadow-[0_20px_50px_rgba(245,73,0,0.08)] transition-all duration-500 flex flex-col h-full text-center xl:text-left">
-                  <div className="w-12 h-12 bg-orange-600 text-white rounded-xl flex items-center justify-center font-black text-lg mb-6 shadow-lg shadow-orange-600/20 group-hover:scale-110 transition-transform mx-auto xl:mx-0">
+                <div className="bg-white p-6 xl:p-8 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 hover:border-orange-600/30 hover:shadow-[0_20px_50px_rgba(245,73,0,0.08)] transition-all duration-500 flex flex-col h-full text-center xl:text-left relative z-10">
+                  <div className="w-12 h-12 flex-shrink-0 bg-orange-600 text-white rounded-xl flex items-center justify-center font-black text-lg mb-4 xl:mb-6 shadow-lg shadow-orange-600/20 group-hover:scale-110 transition-transform mx-auto xl:mx-0 relative z-20">
                     {i + 1}
                   </div>
                   
@@ -65,7 +63,7 @@ const RoofingProcess = () => {
                     {step.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

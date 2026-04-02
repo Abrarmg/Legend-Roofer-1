@@ -14,11 +14,76 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body, html {
+    overflow-x: hidden;
+  }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
   }
+  h1 { font-size: clamp(2rem, 5vw + 1rem, 4rem); line-height: 1.1; }
+  h2 { font-size: clamp(1.75rem, 4vw + 1rem, 3rem); line-height: 1.2; }
+  h3 { font-size: clamp(1.5rem, 3vw + 1rem, 2.5rem); line-height: 1.3; }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  button {
+    min-height: 44px;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+@layer utilities {
+  .hide-scrollbars {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbars::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      will-change: opacity, transform;
+    }
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .scroll-reveal-scale.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .scroll-reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      will-change: opacity, transform;
+    }
+    .scroll-reveal-left.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .scroll-reveal-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      will-change: opacity, transform;
+    }
+    .scroll-reveal-right.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }

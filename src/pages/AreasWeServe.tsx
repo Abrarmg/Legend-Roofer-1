@@ -132,14 +132,14 @@ const AreasWeServe = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Mississauga Neighbourhoods We Serve</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">Local experience means we understand the specific demands of every community in Mississauga.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {mississaugaAreas.map((area, i) => (
-              <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <div className="mb-4 w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center">
-                  {React.cloneElement(area.icon as React.ReactElement, { size: 24 })}
+              <div key={i} data-delay={i * 0.1} className="scroll-reveal scroll-reveal-scale bg-white p-4 md:p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                <div className="mb-4 w-10 h-10 md:w-12 md:h-12 bg-orange-50 rounded-2xl flex items-center justify-center">
+                  {React.cloneElement(area.icon as React.ReactElement, { size: 24, className: "w-5 h-5 md:w-6 md:h-6" })}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{area.title}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">{area.desc}</p>
+                <h3 className="text-[14px] md:text-xl font-bold text-slate-900 mb-1 md:mb-3">{area.title}</h3>
+                <p className="text-slate-600 text-xs md:text-sm leading-relaxed">{area.desc}</p>
               </div>
             ))}
           </div>

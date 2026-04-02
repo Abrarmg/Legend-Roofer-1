@@ -60,6 +60,7 @@ import { LeadModalProvider, useLeadModal } from './context/LeadModalContext';
 import LeadModal from './components/LeadModal';
 import { ThankYouModalProvider, useThankYouModal } from './context/ThankYouModalContext';
 import ThankYouModal from './components/ThankYouModal';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -101,10 +102,10 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/80 backdrop-blur-md border-b border-white/10 shadow-lg py-2' : 'bg-transparent py-4'}`}>
+    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/90 backdrop-blur-md border-b border-white/10 shadow-lg py-2' : 'bg-slate-900 md:bg-transparent py-4'}`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className={`block transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24'}`}>
+          <Link to="/" className={`block transition-all duration-300 ${isScrolled ? 'h-10 md:h-16' : 'h-12 md:h-24'}`}>
             <img 
               src="https://i.ibb.co/7D1kpZT/1477810a-0ccc-4005-b374-973786980fda.png" 
               alt="Legend Roofer Logo" 
@@ -256,16 +257,13 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-white"
+      <div className="container mx-auto px-4 relative z-10 w-full overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div 
+            className="text-white scroll-reveal scroll-reveal-left pt-10"
           >
-            <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] mb-6 tracking-tight pt-10">
-              <span className="text-orange-500 underline decoration-orange-600/30 underline-offset-8 text-4xl lg:text-6xl">Expert Roof Repair in Mississauga You Can Trust</span>
+            <h1 className="font-black mb-6 tracking-tight">
+              <span className="text-orange-500 underline decoration-orange-600/30 underline-offset-8">Expert Roof Repair in Mississauga You Can Trust</span>
             </h1>
             <p className="text-xl text-slate-300 mb-8 max-w-2xl leading-relaxed">
               Whether it's storm damage, leaks, or aging shingles, our certified team delivers fast, reliable roof repair across Mississauga and the Greater Toronto Area. From flat, metal, and slate roofing fixes to emergency repairs when you need help most — we handle it all. We serve homeowners and commercial properties with same-day inspections, upfront cost estimates, and workmanship backed by warranty. With over 5 years of local experience and hundreds of 5-star reviews, Mississauga property owners choose us as the best option for lasting results, not quick fixes.
@@ -279,17 +277,14 @@ const Hero = () => {
                 Book Free Inspection
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>
-              <Link to="/#services" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-lg transition-all">
+              <Link to="/#services" className="w-full md:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-lg transition-all text-center">
                 Our Services
               </Link>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white rounded-3xl p-8 shadow-2xl shadow-black/50 max-w-md mx-auto lg:ml-auto mt-10"
+          <div 
+            className="bg-white rounded-[2rem] p-6 md:p-8 shadow-2xl shadow-black/50 w-full max-w-md mx-auto lg:ml-auto mt-4 order-last lg:order-none scroll-reveal scroll-reveal-right"
           >
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-slate-900 uppercase">Claim $100 Free Roof Inspection</h3>
@@ -325,11 +320,11 @@ const Hero = () => {
                 <option value="Slate Roofing">Slate Roofing</option>
               </select>
               <textarea name="message" placeholder="Tell us about your project" rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all"></textarea>
-              <button type="submit" className="w-full bg-[#F54900] hover:opacity-90 text-white font-bold py-4 rounded-xl transition-all shadow-lg">
+              <button type="submit" className="w-full bg-[#F54900] hover:opacity-90 text-white font-bold py-4 rounded-xl transition-all shadow-lg min-h-[44px]">
                 Request Free Inspection
               </button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -432,13 +427,10 @@ const Services = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, i) => (
-            <motion.div 
+            <div 
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="group relative h-[450px] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+              data-delay={i * 0.1}
+              className="scroll-reveal scroll-reveal-scale group relative h-[450px] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
             >
               {/* Background Image with Overlay */}
               <div className="absolute inset-0">
@@ -475,12 +467,12 @@ const Services = () => {
 
                 <Link 
                   to={service.path || "/contact-us"}
-                  className="bg-white text-slate-900 px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-[#F54900] hover:text-white transition-all duration-300 w-fit shadow-xl text-center"
+                  className="bg-white text-slate-900 px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-[#F54900] hover:text-white transition-all duration-300 w-full md:w-fit shadow-xl text-center min-h-[44px] flex items-center justify-center"
                 >
                   {service.path ? "Learn More" : "Book Free Estimate"}
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -523,9 +515,9 @@ const Testimonials = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="flex flex-row overflow-x-auto snap-x snap-mandatory hide-scrollbars md:grid md:grid-cols-3 gap-6 pb-4">
           {reviews.map((review, i) => (
-            <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-500 flex flex-col">
+            <div key={i} data-delay={i * 0.1} className="scroll-reveal scroll-reveal-scale bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-500 flex flex-col min-w-[85vw] md:min-w-0 snap-center">
               <div className="flex justify-between items-start mb-6">
                 <div className="flex items-center gap-4">
                   <img 
@@ -612,7 +604,7 @@ const FAQ = () => {
           {faqs.map((faq, i) => (
             <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden">
               <details className="group">
-                <summary className="flex justify-between items-center p-6 cursor-pointer list-none bg-slate-50 hover:bg-slate-100 transition-colors">
+                <summary className="flex justify-between items-center p-6 cursor-pointer list-none bg-slate-50 hover:bg-slate-100 transition-colors min-h-[48px]">
                   <span className="text-lg font-bold text-slate-900">{faq.question}</span>
                   <ChevronDown className="text-orange-600 group-open:rotate-180 transition-transform" size={24} />
                 </summary>
@@ -647,7 +639,7 @@ const Footer = () => {
               Legend Roofer Roofing & Exteriors | Expert Roof Repair & Replacement in Mississauga & GTA.
             </p>
             <div className="space-y-4">
-              <a href="mailto:info@legendroofer.com" className="flex items-center gap-3 text-slate-300 hover:text-orange-500 transition-colors">
+              <a href="mailto:info@legendroofer.com" className="flex items-center gap-3 text-slate-300 hover:text-orange-500 transition-colors min-h-[44px]">
                 <Mail size={20} className="text-orange-600" />
                 info@legendroofer.com
               </a>
@@ -656,7 +648,7 @@ const Footer = () => {
                   href="https://www.facebook.com/profile.php?id=61576434872614" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-300 hover:bg-orange-600 hover:text-white transition-all"
+                  className="w-11 h-11 rounded-full bg-white/5 flex items-center justify-center text-slate-300 hover:bg-orange-600 hover:text-white transition-all"
                   aria-label="Facebook"
                 >
                   <Facebook size={20} />
@@ -665,7 +657,7 @@ const Footer = () => {
                   href="https://www.instagram.com/legendroofer1/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-300 hover:bg-orange-600 hover:text-white transition-all"
+                  className="w-11 h-11 rounded-full bg-white/5 flex items-center justify-center text-slate-300 hover:bg-orange-600 hover:text-white transition-all"
                   aria-label="Instagram"
                 >
                   <Instagram size={20} />
@@ -770,43 +762,30 @@ const BeforeAfter = () => {
     <section className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-orange-600 font-bold tracking-wider uppercase text-sm mb-4 block"
+          <span 
+            className="text-orange-600 font-bold tracking-wider uppercase text-sm mb-4 block scroll-reveal scroll-reveal-scale"
           >
             Transformation Gallery
-          </motion.span>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-slate-900 mb-6"
+          </span>
+          <h2 
+            className="text-4xl md:text-5xl font-black text-slate-900 mb-6 scroll-reveal scroll-reveal-scale"
+            data-delay="0.1"
           >
             Our Work: <span className="text-orange-600">Before & After</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-600"
+          </h2>
+          <p 
+            className="text-lg text-slate-600 scroll-reveal scroll-reveal-scale"
+            data-delay="0.2"
           >
             See the legendary difference our expert team makes. We don't just fix roofs; we restore peace of mind and enhance your home's curb appeal.
-          </motion.p>
+          </p>
         </div>
 
         <div className="space-y-20">
           {projects.map((project, index) => (
-            <motion.div 
+            <div 
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid lg:grid-cols-2 gap-12 items-center"
+              className="grid lg:grid-cols-2 gap-12 items-center scroll-reveal scroll-reveal-scale"
             >
               <div className={`space-y-6 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                 <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-4 py-2 rounded-full text-sm font-bold">
@@ -829,12 +808,12 @@ const BeforeAfter = () => {
                 </ul>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative group overflow-hidden rounded-2xl shadow-lg">
                   <img 
                     src={project.before} 
                     alt="Before" 
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full aspect-video object-cover transition-transform duration-500 group-hover:scale-110"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest">
@@ -845,7 +824,7 @@ const BeforeAfter = () => {
                   <img 
                     src={project.after} 
                     alt="After" 
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full aspect-video object-cover transition-transform duration-500 group-hover:scale-110"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 left-4 bg-orange-600/90 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest">
@@ -853,7 +832,7 @@ const BeforeAfter = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -1451,6 +1430,7 @@ const RecentBlogPosts = () => {
 
 const HomePage = () => {
   const { openModal } = useLeadModal();
+  useScrollReveal();
   return (
     <>
       <Hero />
