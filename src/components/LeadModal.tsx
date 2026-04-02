@@ -36,16 +36,29 @@ const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
               <h3 className="text-2xl font-black text-slate-900 mb-2">Get Your Free Inspection</h3>
               <p className="text-slate-600 mb-6">Fill out the form below and we'll get back to you shortly.</p>
               
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
+              <form className="space-y-4" onSubmit={async (e) => { 
+                e.preventDefault(); 
+                const formData = new FormData(e.currentTarget);
+                try {
+                  await fetch("https://formsubmit.co/ajax/naeemseo7860@gmail.com", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(formData.entries()))
+                  });
+                  onClose(); 
+                } catch(err) { console.error(err); }
+              }}>
                 <div className="grid grid-cols-2 gap-4">
                   <input 
                     type="text" 
+                    name="first_name"
                     placeholder="First Name" 
                     required
                     className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors" 
                   />
                   <input 
                     type="text" 
+                    name="last_name"
                     placeholder="Last Name" 
                     required
                     className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors" 
@@ -53,17 +66,19 @@ const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
                 </div>
                 <input 
                   type="email" 
+                  name="email"
                   placeholder="Email Address" 
                   required
                   className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors" 
                 />
                 <input 
                   type="tel" 
+                  name="phone"
                   placeholder="Phone Number" 
                   required
                   className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors" 
                 />
-                <select className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors">
+                <select name="service" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors">
                   <option>Select Service</option>
                   <option>Roof Replacement</option>
                   <option>Roof Repair</option>
@@ -74,6 +89,7 @@ const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
                   <option>Slate Roofing</option>
                 </select>
                 <textarea 
+                  name="message"
                   placeholder="Message (Optional)" 
                   rows={3} 
                   className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-orange-500 outline-none transition-colors resize-none"
