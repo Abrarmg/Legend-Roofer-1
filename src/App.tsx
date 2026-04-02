@@ -58,7 +58,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 
 import { LeadModalProvider, useLeadModal } from './context/LeadModalContext';
 import LeadModal from './components/LeadModal';
-import { ThankYouModalProvider } from './context/ThankYouModalContext';
+import { ThankYouModalProvider, useThankYouModal } from './context/ThankYouModalContext';
 import ThankYouModal from './components/ThankYouModal';
 
 const Header = () => {
@@ -242,6 +242,7 @@ const Header = () => {
 
 const Hero = () => {
   const { openModal } = useLeadModal();
+  const { openThankYouModal } = useThankYouModal();
   return (
     <section className="relative min-h-screen flex items-center pt-20 pb-10 overflow-hidden">
       {/* Background Image with Overlay */}
@@ -294,25 +295,37 @@ const Hero = () => {
               <h3 className="text-2xl font-bold text-slate-900 uppercase">Claim $100 Free Roof Inspection</h3>
               <p className="text-slate-500">We have limited spots this week!</p>
             </div>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              try {
+                await fetch("/wp-json/legend-roofer/v1/submit-lead", {
+                  method: "POST",
+                  headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                  body: JSON.stringify(Object.fromEntries(formData.entries()))
+                });
+                openThankYouModal();
+                (e.target as HTMLFormElement).reset();
+              } catch(err) { console.error(err); }
+            }}>
               <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
-                <input type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
+                <input type="text" name="first_name" required placeholder="First Name" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
+                <input type="text" name="last_name" required placeholder="Last Name" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
               </div>
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
-              <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
-              <select className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all appearance-none bg-white">
-                <option>Select Project Type</option>
-                <option>Roof Replacement</option>
-                <option>Roof Repair</option>
-                <option>Commercial Roof Repair</option>
-                <option>Emergency Roof Repair</option>
-                <option>Metal Roofing</option>
-                <option>Flat Roof Repair</option>
-                <option>Slate Roofing</option>
+              <input type="email" name="email" required placeholder="Email Address" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
+              <input type="tel" name="phone" required placeholder="Phone Number" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all" />
+              <select name="service" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all appearance-none bg-white">
+                <option value="">Select Project Type</option>
+                <option value="Roof Replacement">Roof Replacement</option>
+                <option value="Roof Repair">Roof Repair</option>
+                <option value="Commercial Roof Repair">Commercial Roof Repair</option>
+                <option value="Emergency Roof Repair">Emergency Roof Repair</option>
+                <option value="Metal Roofing">Metal Roofing</option>
+                <option value="Flat Roof Repair">Flat Roof Repair</option>
+                <option value="Slate Roofing">Slate Roofing</option>
               </select>
-              <textarea placeholder="Tell us about your project" rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all"></textarea>
-              <button className="w-full bg-[#F54900] hover:opacity-90 text-white font-bold py-4 rounded-xl transition-all shadow-lg">
+              <textarea name="message" placeholder="Tell us about your project" rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-600 outline-none transition-all"></textarea>
+              <button type="submit" className="w-full bg-[#F54900] hover:opacity-90 text-white font-bold py-4 rounded-xl transition-all shadow-lg">
                 Request Free Inspection
               </button>
             </form>
